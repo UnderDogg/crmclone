@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateLaConfigsTable extends Migration
 {
@@ -16,7 +16,7 @@ class CreateLaConfigsTable extends Migration
         Schema::create('la_configs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('key', 50);
-			$table->string('section', 100)->default("");
+            $table->string('section', 100)->default("");
             $table->string('value', 255);
             $table->timestamps();
         });

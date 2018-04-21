@@ -8,7 +8,8 @@
 
 @section("headerElems")
   @la_access("Backups", "create")
-  <button class="btn btn-success btn-sm pull-right" id="CreateBackup">Create Backup</button>
+  {{--<button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#AddModal">Add Department</button>--}}
+  <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#CreateBackupModal">Create Backup</button>
   @endla_access
 @endsection
 
@@ -44,6 +45,36 @@
       </table>
     </div>
   </div>
+
+
+
+
+  <div class="modal fade" id="CreateBackupModal" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Create Backup</h4>
+        </div>
+        <div class="modal-body">
+          <div class="box-body">
+            <button class="btn btn-success btn-sm pull-right" id="#CreateBackup">Create Backup</button>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
 
 @endsection
 

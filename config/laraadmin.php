@@ -3,17 +3,13 @@
  * Config generated using LaraAdmin
  * Help: http://laraadmin.com
  */
-
 return [
-    
-	/*
-    |--------------------------------------------------------------------------
-    | General Configuration
-    |--------------------------------------------------------------------------
-    */
-    
-	'adminRoute' => 'admin',
-    
+    /*
+      |--------------------------------------------------------------------------
+      | General Configuration
+      |--------------------------------------------------------------------------
+      */
+  'adminRoute' => 'admin',
     /*
     |--------------------------------------------------------------------------
     | Uploads Configuration
@@ -24,9 +20,9 @@ return [
 	| allow_filename_change: allows user to modify filenames after upload. Changes will be only in Database not on actual files.
     | 
     */
-    'uploads' => [
-        'private_uploads' => false,
-        'default_public' => false,
-        'allow_filename_change' => true
-    ],
+  'uploads' => [
+    'private_uploads' => false,
+    'default_public' => false,
+    'allow_filename_change' => true
+  ],
 ];

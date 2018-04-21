@@ -81,7 +81,7 @@ class BackupsController extends Controller
                 }
                 return response()->json([
                   'status' => 'failed',
-                  'message' => "Error ".$exitCode." while creating Backup.",
+                  'message' => "Error " . $exitCode . " while creating Backup.",
                   'exitCode' => $exitCode,
                   'output' => $outputStr
                 ]);

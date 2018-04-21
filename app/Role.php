@@ -6,20 +6,19 @@
 
 namespace App;
 
-use Zizaco\Entrust\EntrustRole;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Zizaco\Entrust\EntrustRole;
 
 class Role extends EntrustRole
 {
     use SoftDeletes;
-	
-	protected $table = 'roles';
-	
-	protected $hidden = [
-        
+
+    protected $table = 'roles';
+
+    protected $hidden = [
     ];
 
-	protected $guarded = [];
+    protected $guarded = [];
 
-	protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at'];
 }

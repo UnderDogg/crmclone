@@ -12,18 +12,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Ticket extends Model
 {
     use SoftDeletes;
-	
-	protected $table = 'tickets';
-	
-	protected $hidden = [
-        
+
+    protected $table = 'tickets';
+
+    protected $hidden = [
     ];
 
-	protected $guarded = [];
+    protected $guarded = [];
 
-	protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at'];
 
-	/**
+    /**
      * Get the Employee assigned to this Ticket
      */
     public function assigned_to_emp()
@@ -31,15 +30,15 @@ class Ticket extends Model
         return $this->belongsTo('App\Models\Employee', 'assigned_to', 'id');
     }
 
-	/**
+    /**
      * Get the Organization belongs to this Ticket
      */
     public function organization_info()
     {
         return $this->belongsTo('App\Models\Organization', 'organization', 'id');
     }
-	
-	/**
+
+    /**
      * Get the Contact belongs to this Ticket
      */
     public function contact_info()
@@ -47,8 +46,7 @@ class Ticket extends Model
         return $this->belongsTo('App\Models\Contact', 'contact', 'id');
     }
 
-
-	/**
+    /**
      * Get the Contact belongs to this Ticket
      */
     public function project_info()
