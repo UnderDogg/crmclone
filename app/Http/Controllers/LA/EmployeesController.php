@@ -28,6 +28,21 @@ use Log;
 class EmployeesController extends Controller
 {
 	public $show_action = true;
+	public $view_col = 'name';
+	public $listing_cols = ['id', 'name', 'designation', 'mobile', 'email', 'dept'];
+	
+	public function __construct() {
+		
+		// Field Access of Listing Columns
+		if(\Dwij\Laraadmin\Helpers\LAHelper::laravel_ver() == 5.3) {
+			$this->middleware(function ($request, $next) {
+				$this->listing_cols = ModuleFields::listingColumnAccessScan('Employees', $this->listing_cols);
+				return $next($request);
+			});
+		} else {
+			$this->listing_cols = ModuleFields::listingColumnAccessScan('Employees', $this->listing_cols);
+		}
+	}
 	
 	/**
 	 * Display a listing of the Employees.
@@ -41,7 +56,7 @@ class EmployeesController extends Controller
 		if(Module::hasAccess($module->id)) {
 			return View('la.employees.index', [
 				'show_actions' => $this->show_action,
-				'listing_cols' => Module::getListingColumns('Employees'),
+				'listing_cols' => $this->listing_cols,
 				'module' => $module
 			]);
 		} else {
@@ -134,7 +149,7 @@ class EmployeesController extends Controller
 				return view('la.employees.show', [
 					'user' => $user,
 					'module' => $module,
-					'view_col' => $module->view_col,
+					'view_col' => $this->view_col,
 					'no_header' => true,
 					'no_padding' => "no-padding"
 				])->with('employee', $employee);
@@ -170,7 +185,7 @@ class EmployeesController extends Controller
 				
 				return view('la.employees.edit', [
 					'module' => $module,
-					'view_col' => $module->view_col,
+					'view_col' => $this->view_col,
 					'user' => $user,
 				])->with('employee', $employee);
 			} else {
@@ -245,28 +260,21 @@ class EmployeesController extends Controller
 	 *
 	 * @return
 	 */
-	public function dtajax(Request $request)
+	public function dtajax()
 	{
-		$module = Module::get('Employees');
-		$listing_cols = Module::getListingColumns('Employees');
-		
-		if(isset($request->filter_column)) {
-			$values = DB::table('employees')->select($listing_cols)->whereNull('deleted_at')->where($request->filter_column, $request->filter_column_value);
-		} else {
-			$values = DB::table('employees')->select($listing_cols)->whereNull('deleted_at');
-		}
+		$values = DB::table('employees')->select($this->listing_cols)->whereNull('deleted_at');
 		$out = Datatables::of($values)->make();
 		$data = $out->getData();
 
 		$fields_popup = ModuleFields::getModuleFields('Employees');
 		
 		for($i=0; $i < count($data->data); $i++) {
-			for ($j=0; $j < count($listing_cols); $j++) { 
-				$col = $listing_cols[$j];
+			for ($j=0; $j < count($this->listing_cols); $j++) { 
+				$col = $this->listing_cols[$j];
 				if($fields_popup[$col] != null && starts_with($fields_popup[$col]->popup_vals, "@")) {
 					$data->data[$i][$j] = ModuleFields::getFieldValue($fields_popup[$col], $data->data[$i][$j]);
 				}
-				if($col == $module->view_col) {
+				if($col == $this->view_col) {
 					$data->data[$i][$j] = '<a href="'.url(config('laraadmin.adminRoute') . '/employees/'.$data->data[$i][0]).'">'.$data->data[$i][$j].'</a>';
 				}
 				// else if($col == "author") {

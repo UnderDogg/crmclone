@@ -158,7 +158,6 @@ class DatabaseSeeder extends Seeder
 		}
 
 		/* ================ Call Other Seeders ================ */
-
-		$this->call(CRMSeeder::class);
+		
 	}
 }
